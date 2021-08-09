@@ -12,7 +12,7 @@ const data = {
   ],
   doctors: [
     {
-      name: 'Purnomo',
+      name: 'dr. Purnomo',
       specialis: 'Kardiologi',
       desc: '',
       address: '',
@@ -22,7 +22,7 @@ const data = {
         'https://cdn-asset.jawapos.com/wp-content/uploads/2017/06/kisah-meninggalnya-dokter-stefanus-taofik-saat-kerja-piket-lebaran_m_140859-640x421.jpeg',
     },
     {
-      name: 'Indira',
+      name: 'dr. Indira',
       specialis: 'Lung',
       desc: '',
       address: '',
@@ -32,7 +32,7 @@ const data = {
         'https://www.honestdocs.id/system/blog_articles/main_hero_images/000/005/310/medium/iStock-913714110_%281%29.jpg',
     },
     {
-      name: 'Indira',
+      name: 'dr. Indira',
       specialis: 'Lung',
       desc: '',
       address: '',

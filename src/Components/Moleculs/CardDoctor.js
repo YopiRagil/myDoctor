@@ -37,7 +37,7 @@ const CardDoctor = (props) => {
         }}
       />
       <View>
-        <Text style={styles.textName}>dr. {name}</Text>
+        <Text style={styles.textName}>{name}</Text>
         <Text style={styles.textSpecialist}>Specialist {specialis}</Text>
         <View style={styles.flexRow}>
           <Icon

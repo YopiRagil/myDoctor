@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import appReducer from './reducer/appReducer';
 
 const rootReducer = combineReducers({
-  produk: appReducer,
+  apps: appReducer,
 });
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

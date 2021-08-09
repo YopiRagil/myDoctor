@@ -2,24 +2,49 @@ import * as React from 'react';
 import {
   Text,
   View,
-  SafeAreaView,
   Dimensions,
   Image,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Container, CardSpecialicity, CardDoctor } from '../../Components';
 import dataJSON from '../../assets/data';
-import { Icon } from '../../utils';
+import { setDocterDetail } from '../../Redux/action/appAction';
+import { connect } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-  containerCarrousel: { flex: 1, backgroundColor: '#f6fff5' },
+  mainRoot: {
+    flex: 1,
+    backgroundColor: '#f6fff5',
+  },
   flexCenter: { flexDirection: 'row', justifyContent: 'center' },
   titleText: { fontWeight: 'bold', color: '#404040', fontSize: 14 },
   containerDoctor: {
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom: 40,
+  },
+  textSeeMore: {
+    fontWeight: 'bold',
+    textAlign: 'right',
+    fontSize: 13,
+    color: '#406354',
+    marginHorizontal: 5,
+    marginTop: 10,
+  },
+  imageCarrousel: {
+    width: '100%',
+    height: '80%',
+    borderRadius: 10,
+    resizeMode: 'cover',
+  },
+  viewCarrousel: {
+    height: 250,
+    margin: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 const data = {
@@ -27,24 +52,13 @@ const data = {
   carouselItems: dataJSON.banner,
 };
 
-const Home = () => {
+const Home = (props) => {
+  const { navigation, setDocterDetail } = props;
   const renderItem = ({ item, index }) => {
     return (
-      <View
-        style={{
-          height: 250,
-          margin: 15,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <View key={index} style={styles.viewCarrousel}>
         <Image
-          style={{
-            width: '100%',
-            height: '80%',
-            borderRadius: 10,
-            resizeMode: 'cover',
-          }}
+          style={styles.imageCarrousel}
           source={{
             uri: item.link,
           }}
@@ -52,8 +66,13 @@ const Home = () => {
       </View>
     );
   };
+  const handleClickDoctor = (data) => {
+    setDocterDetail(data);
+    navigation.navigate('DoctorDetails');
+  };
+
   return (
-    <View style={styles.containerCarrousel}>
+    <View style={styles.mainRoot}>
       <ScrollView>
         <View style={styles.flexCenter}>
           <Carousel
@@ -76,13 +95,27 @@ const Home = () => {
           </Text>
           <ScrollView horizontal={true}>
             {dataJSON.specialis.map((item, index) => (
-              <CardSpecialicity key={index} icon={item.icon} type={item.type} />
+              <CardSpecialicity
+                spaceLeft={15}
+                spaceRight={0}
+                key={index}
+                icon={item.icon}
+                type={item.type}
+              />
             ))}
-            <CardSpecialicity
-              icon={{ icon: 'more', iconType: 'MaterialIcons', color: 'gray' }}
-              type="See More"
-              size={24}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('Specialist')}>
+              <CardSpecialicity
+                spaceLeft={15}
+                spaceRight={15}
+                icon={{
+                  icon: 'more-horiz',
+                  iconType: 'MaterialIcons',
+                  color: 'gray',
+                }}
+                type="See More"
+                size={24}
+              />
+            </TouchableOpacity>
             <View style={{ width: 15 }} />
           </ScrollView>
         </Container>
@@ -90,20 +123,16 @@ const Home = () => {
           <View style={styles.containerDoctor}>
             <Text style={styles.titleText}>List Doctor</Text>
             {dataJSON.doctors.map((docter, index) => (
-              <CardDoctor key={index} {...docter} />
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleClickDoctor(docter)}
+              >
+                <CardDoctor {...docter} />
+              </TouchableOpacity>
             ))}
-            <Text
-              style={{
-                fontWeight: 'bold',
-                textAlign: 'right',
-                fontSize: 13,
-                color: '#406354',
-                marginHorizontal: 5,
-                marginTop: 10,
-              }}
-            >
-              See More
-            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Doctors')}>
+              <Text style={styles.textSeeMore}>See More</Text>
+            </TouchableOpacity>
           </View>
         </Container>
       </ScrollView>
@@ -111,4 +140,12 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    apps: state.apps,
+  };
+};
+const mapDispatchToProps = {
+  setDocterDetail,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
