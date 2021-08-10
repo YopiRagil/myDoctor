@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import { Container } from '../../Components';
 import { Icon } from '../../utils';
@@ -45,8 +46,8 @@ const styles = StyleSheet.create({
   },
   textName: { color: 'black', fontSize: 18, fontWeight: 'bold' },
   textSpecialist: { color: '#406354', fontSize: 16 },
-  flexRow: { flexDirection: 'row' },
-  textInfo: { color: 'gray', fontSize: 16, marginLeft: 5 },
+  flexRow: { flexDirection: 'row', alignItems: 'center' },
+  textInfo: { color: 'gray', fontSize: 15, marginLeft: 5 },
   widthIcon: { width: 20, alignItems: 'center' },
   textInfo2: {
     color: 'gray',
@@ -72,6 +73,10 @@ const styles = StyleSheet.create({
 
 const DoctorDetails = (props) => {
   const { doctor, makeAppointMent, cancelAppointMent, apointment } = props;
+  const handleAppointMent = (doctor) => {
+    const message = `Hi, I’d like to make an appointment for ${doctor.name} today`;
+    Linking.openURL(`whatsapp://send?text=${message}&phone=${doctor.phone}`);
+  };
   return (
     <View style={styles.mainRoot}>
       <Container>
@@ -106,6 +111,15 @@ const DoctorDetails = (props) => {
                 />
                 <Text style={styles.textInfo}>{doctor?.rate}%</Text>
               </View>
+              <View style={styles.flexRow}>
+                <Icon
+                  type="FontAwesome"
+                  name="phone-square"
+                  color="silver"
+                  size={16}
+                />
+                <Text style={styles.textInfo}>{doctor?.phone}</Text>
+              </View>
             </View>
           </View>
           <View style={styles.descAndAddress}>
@@ -136,21 +150,12 @@ const DoctorDetails = (props) => {
         </ScrollView>
       </Container>
       <View style={styles.viewOfButton}>
-        {apointment.includes(doctor.id) ? (
-          <MyButton
-            onPress={() => cancelAppointMent(doctor.id)}
-            width={0.8}
-            color="#992b3f"
-            text="Cancel Appointment"
-          />
-        ) : (
-          <MyButton
-            onPress={() => makeAppointMent(doctor.id)}
-            width={0.8}
-            color="#14b383"
-            text="Make Appointment"
-          />
-        )}
+        <MyButton
+          onPress={() => handleAppointMent(doctor)}
+          width={0.8}
+          color="#14b383"
+          text="Make Appointment"
+        />
       </View>
     </View>
   );

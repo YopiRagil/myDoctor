@@ -129,7 +129,7 @@ const Home = (props) => {
         <Container>
           <View style={styles.containerDoctor}>
             <Text style={styles.titleText}>List Doctor</Text>
-            {dataJSON.doctors.map((docter, index) => (
+            {dataJSON.doctors.slice(0, 3).map((docter, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() => handleClickDoctor(docter)}
