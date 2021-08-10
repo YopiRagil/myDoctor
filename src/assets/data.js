@@ -38,7 +38,7 @@ const data = {
     {
       id: 3,
       name: 'dr. Adisti',
-      specialis: 'Ophthalmologi',
+      specialis: 'Optalmologi',
       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
       address: 'J. Abdurahman Wahid, Jombang',
       rate: 100,
@@ -74,7 +74,7 @@ const data = {
       icon: { iconType: 'FontAwesome', icon: 'intersex', color: 'brown' },
     },
     {
-      type: 'Ophthalmologi',
+      type: 'Optalmologi',
       icon: { iconType: 'Entypo', icon: 'eye', color: 'black' },
     },
   ],
