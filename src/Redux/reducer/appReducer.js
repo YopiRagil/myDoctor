@@ -4,6 +4,7 @@
 const initialState = {
   isLoading: true,
   doctor: null,
+  appointment: [],
 };
 
 export default function appReducer(state = initialState, action) {
@@ -18,6 +19,18 @@ export default function appReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         doctor: action.payload,
+      };
+    case 'SET_APPOINTMENT':
+      return {
+        ...state,
+        isLoading: false,
+        appointment: [...state.appointment, action.payload],
+      };
+    case 'CANCEL_APPOINTMENT':
+      return {
+        ...state,
+        isLoading: false,
+        appointment: state.appointment.filter((el) => el !== action.payload),
       };
     default:
       return state;

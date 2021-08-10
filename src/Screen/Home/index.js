@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Touchable,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Container, CardSpecialicity, CardDoctor } from '../../Components';
@@ -70,7 +71,9 @@ const Home = (props) => {
     setDocterDetail(data);
     navigation.navigate('DoctorDetails');
   };
-
+  const handleClickSpecialist = (data) => {
+    navigation.navigate('Doctors', { data: data });
+  };
   return (
     <View style={styles.mainRoot}>
       <ScrollView>
@@ -95,13 +98,17 @@ const Home = (props) => {
           </Text>
           <ScrollView horizontal={true}>
             {dataJSON.specialis.map((item, index) => (
-              <CardSpecialicity
-                spaceLeft={15}
-                spaceRight={0}
+              <TouchableOpacity
                 key={index}
-                icon={item.icon}
-                type={item.type}
-              />
+                onPress={() => handleClickSpecialist(item.type)}
+              >
+                <CardSpecialicity
+                  spaceLeft={15}
+                  spaceRight={0}
+                  icon={item.icon}
+                  type={item.type}
+                />
+              </TouchableOpacity>
             ))}
             <TouchableOpacity onPress={() => navigation.navigate('Specialist')}>
               <CardSpecialicity
